@@ -11,16 +11,32 @@ const app = express();
 app.use(express.json());
 
 // Cấu hình Swagger
+// Cấu hình Swagger
 const swaggerOptions = {
-  definition: {
-	openapi: '3.0.0',
-	info: {
-		title: 'User API',
-		version: '1.0.0',
-		description: 'API để quản lý người dùng',
+	definition: {
+		openapi: '3.0.0',
+		info: {
+			title: 'User API',
+			version: '1.0.0',
+			description: 'API để quản lý người dùng',
+		},
+		security: [
+			{
+				Bearer: [],
+			},
+		],
+		components: {
+			securitySchemes: {
+				Bearer: {
+					type: 'apiKey',
+					in: 'header',
+					name: 'Authorization',
+					description: 'Bearer token',
+				},
+			},
+		},
 	},
-  },
-  apis: ['./routes/users.js'],
+	apis: ['./routes/users.js'], // Đảm bảo tệp này chứa API documentation
 };
 
 // Tạo tài liệu Swagger
